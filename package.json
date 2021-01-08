@@ -4,6 +4,7 @@
   "description": "A utility for generating an ARM template from individual resource files",
   "main": "src/index.js",
   "scripts": {
+    "build": "tsc",
     "test": "jest"
   },
   "author": "Spenser_Andreassen <spenserca@gmail.com>",
