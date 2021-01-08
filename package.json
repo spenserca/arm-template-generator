@@ -1,7 +1,7 @@
 {
   "name": "arm-template-generator",
   "version": "1.0.0",
-  "description": "A utility for generating an ARM template from separate resource files",
+  "description": "A utility for generating an ARM template from individual resource files",
   "main": "src/index.js",
   "scripts": {
     "test": "jest"
