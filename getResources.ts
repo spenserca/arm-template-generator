@@ -7,7 +7,7 @@ interface ArmTemplateTags {
 
 interface Sku {}
 
-interface ArmTemplateResource {
+export interface ArmTemplateResource {
   condition?: string;
   type: string;
   apiVersion: string;

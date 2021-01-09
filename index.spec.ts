@@ -7,8 +7,13 @@ import {
   ParameterType
 } from './index';
 import { Chance } from 'chance';
+import { getResources } from './getResources';
 
 const chance = new Chance();
+
+jest.mock('./getResources');
+
+const getResourcesMock = getResources as jest.Mock;
 
 describe('ARM template parameters', () => {
   describe('when passing parameters to the arm template', () => {
@@ -73,8 +78,8 @@ describe('ARM template parameters', () => {
       actual = createArmTemplate(options);
     });
 
-    it('has an empty parameter object', () => {
-      expect(actual.parameters).toEqual({});
+    it('does not have a parameters property', () => {
+      expect(actual.parameters).toBeUndefined();
     });
   });
 });
@@ -128,8 +133,8 @@ describe('ARM template variables', () => {
       actual = createArmTemplate(options);
     });
 
-    it('has an empty parameter object', () => {
-      expect(actual.variables).toEqual({});
+    it('does not have a variables property', () => {
+      expect(actual.variables).toBeUndefined();
     });
   });
 });
@@ -176,8 +181,8 @@ describe('ARM template metadata', () => {
       actual = createArmTemplate(options);
     });
 
-    it('has an empty parameter object', () => {
-      expect(actual.metadata).toEqual({});
+    it('does not have a metadata property', () => {
+      expect(actual.metadata).toBeUndefined();
     });
   });
 });
@@ -238,8 +243,77 @@ describe('ARM template outputs', () => {
       actual = createArmTemplate(options);
     });
 
-    it('has an empty parameter object', () => {
-      expect(actual.outputs).toEqual({});
+    it('does not have a outputs property', () => {
+      expect(actual.outputs).toBeUndefined();
+    });
+  });
+});
+
+describe('ARM template resources', () => {
+  describe('when passing resources to exclude', () => {
+    let actual: any;
+    let resourcesDir: string;
+    let resourcesToExclude: string[];
+    let resources: any[];
+
+    beforeEach(() => {
+      resourcesDir = chance.string();
+
+      resourcesToExclude = chance.n(chance.string, chance.d10());
+
+      const armTemplateOptions = {
+        resourcesDir: resourcesDir,
+        resourcesToExclude: resourcesToExclude
+      };
+      resources = chance.n(
+        () => ({ [chance.string()]: chance.string() }),
+        chance.d10()
+      );
+      getResourcesMock.mockReturnValue(resources);
+
+      actual = createArmTemplate(armTemplateOptions);
+    });
+
+    it('gets the resources', () => {
+      expect(getResourcesMock).toHaveBeenCalledTimes(1);
+      expect(getResourcesMock).toHaveBeenCalledWith(
+        resourcesDir,
+        resourcesToExclude
+      );
+    });
+
+    it('adds the resources to the ARM template', () => {
+      expect(actual.resources).toEqual(resources);
+    });
+  });
+
+  describe('when not passing resources to exclude', () => {
+    let actual: any;
+    let resourcesDir: string;
+    let resources: any[];
+
+    beforeEach(() => {
+      resourcesDir = chance.string();
+
+      const armTemplateOptions = {
+        resourcesDir: resourcesDir
+      };
+      resources = chance.n(
+        () => ({ [chance.string()]: chance.string() }),
+        chance.d10()
+      );
+      getResourcesMock.mockReturnValue(resources);
+
+      actual = createArmTemplate(armTemplateOptions);
+    });
+
+    it('gets the resources', () => {
+      expect(getResourcesMock).toHaveBeenCalledTimes(1);
+      expect(getResourcesMock).toHaveBeenCalledWith(resourcesDir, []);
+    });
+
+    it('adds the resources to the ARM template', () => {
+      expect(actual.resources).toEqual(resources);
     });
   });
 });

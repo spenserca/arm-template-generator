@@ -1,3 +1,5 @@
+import { ArmTemplateResource, getResources } from './getResources';
+
 export type ParameterType =
   | 'string'
   | 'secureString'
@@ -63,15 +65,41 @@ export interface ArmTemplateOptions {
   variables?: ArmTemplateVariables;
 }
 
-export const createArmTemplate = (armTemplateOptions: ArmTemplateOptions) => {
-  return {
+interface ArmTemplate {
+  $schema: string;
+  contentVersion: string;
+  metadata?: ArmTemplateMetadata;
+  parameters?: ArmTemplateParameters;
+  variables?: ArmTemplateVariables;
+  resources?: ArmTemplateResource[];
+  outputs?: ArmTemplateOutputs;
+}
+
+export const createArmTemplate = (
+  armTemplateOptions: ArmTemplateOptions
+): ArmTemplate => {
+  const armTemplate: ArmTemplate = {
     $schema:
       'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#',
-    contentVersion: '1.0.0.0',
-    metadata: armTemplateOptions.metadata || {},
-    parameters: armTemplateOptions.parameters || {},
-    variables: armTemplateOptions.variables || {},
-    resources: [],
-    outputs: armTemplateOptions.outputs || {}
+    contentVersion: '1.0.0.0'
   };
+
+  if (armTemplateOptions.parameters) {
+    armTemplate.parameters = armTemplateOptions.parameters;
+  }
+  if (armTemplateOptions.variables) {
+    armTemplate.variables = armTemplateOptions.variables;
+  }
+  if (armTemplateOptions.metadata) {
+    armTemplate.metadata = armTemplateOptions.metadata;
+  }
+  if (armTemplateOptions.outputs) {
+    armTemplate.outputs = armTemplateOptions.outputs;
+  }
+  armTemplate.resources = getResources(
+    armTemplateOptions.resourcesDir,
+    armTemplateOptions.resourcesToExclude || []
+  );
+
+  return armTemplate;
 };
