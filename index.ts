@@ -1,4 +1,4 @@
-type ParameterType =
+export type ParameterType =
   | 'string'
   | 'secureString'
   | 'int'
@@ -21,7 +21,7 @@ type ValueType =
   | Array<boolean>
   | Array<object>;
 
-interface ArmTemplateParameters {
+export interface ArmTemplateParameters {
   [key: string]: {
     type: ParameterType;
     defaultValue?: ValueType;
@@ -38,7 +38,7 @@ interface ArmTemplateVariables {
   [key: string]: ValueType;
 }
 
-interface ArmTemplateOptions {
+export interface ArmTemplateOptions {
   outputs?: any;
   parameters?: ArmTemplateParameters;
   resourcesToExclude?: string[];
@@ -70,7 +70,7 @@ export const createArmTemplate = (armTemplateOptions: ArmTemplateOptions) => {
     $schema:
       'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#',
     contentVersion: '1.0.0.0',
-    parameters: [],
+    parameters: armTemplateOptions.parameters || {},
     variables: [],
     resources: [],
     outputs: {}
