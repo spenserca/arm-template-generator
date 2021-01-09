@@ -112,8 +112,8 @@ const setArmTemplateOutputs = (
 };
 
 const setArmTemplateResources = (
-  armTemplate: ArmTemplate,
-  armTemplateOptions: ArmTemplateOptions
+  armTemplateOptions: ArmTemplateOptions,
+  armTemplate: ArmTemplate
 ) => {
   armTemplate.resources = getResources(
     armTemplateOptions.resourcesDir,
@@ -134,7 +134,7 @@ export const createArmTemplate = (
   setArmTemplateVariables(armTemplateOptions, armTemplate);
   setArmTemplateMetadata(armTemplateOptions, armTemplate);
   setArmTemplateOutputs(armTemplateOptions, armTemplate);
-  setArmTemplateResources(armTemplate, armTemplateOptions);
+  setArmTemplateResources(armTemplateOptions, armTemplate);
 
   return armTemplate;
 };
