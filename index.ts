@@ -11,6 +11,10 @@ interface ParameterMetadata {
   description: string;
 }
 
+export interface ArmTemplateMetadata {
+  [key: string]: any;
+}
+
 type ValueType =
   | string
   | number
@@ -38,8 +42,21 @@ export interface ArmTemplateVariables {
   [key: string]: ValueType;
 }
 
+export interface ArmTemplateOutputs {
+  [outputName: string]: {
+    condition?: string;
+    type: ParameterType;
+    value?: string;
+    copy?: {
+      count: string;
+      input: string;
+    };
+  };
+}
+
 export interface ArmTemplateOptions {
-  outputs?: any;
+  metadata?: ArmTemplateMetadata;
+  outputs?: ArmTemplateOutputs;
   parameters?: ArmTemplateParameters;
   resourcesToExclude?: string[];
   resourcesDir: string;
@@ -70,9 +87,10 @@ export const createArmTemplate = (armTemplateOptions: ArmTemplateOptions) => {
     $schema:
       'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#',
     contentVersion: '1.0.0.0',
+    metadata: armTemplateOptions.metadata || {},
     parameters: armTemplateOptions.parameters || {},
     variables: armTemplateOptions.variables || {},
     resources: [],
-    outputs: {}
+    outputs: armTemplateOptions.outputs || {}
   };
 };
