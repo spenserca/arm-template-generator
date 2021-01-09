@@ -15,7 +15,7 @@ type ValueType =
   | string
   | number
   | boolean
-  | object
+  | { [key: string]: any }
   | Array<string>
   | Array<number>
   | Array<boolean>
@@ -34,7 +34,7 @@ export interface ArmTemplateParameters {
   };
 }
 
-interface ArmTemplateVariables {
+export interface ArmTemplateVariables {
   [key: string]: ValueType;
 }
 
@@ -71,7 +71,7 @@ export const createArmTemplate = (armTemplateOptions: ArmTemplateOptions) => {
       'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#',
     contentVersion: '1.0.0.0',
     parameters: armTemplateOptions.parameters || {},
-    variables: [],
+    variables: armTemplateOptions.variables || {},
     resources: [],
     outputs: {}
   };

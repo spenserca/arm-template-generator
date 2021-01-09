@@ -1,6 +1,6 @@
 import {
-  ArmTemplateOptions,
   ArmTemplateParameters,
+  ArmTemplateVariables,
   createArmTemplate,
   ParameterType
 } from './index';
@@ -32,6 +32,19 @@ const getRandomArmTemplateParameter = (): ArmTemplateParameters => {
         description: chance.string()
       }
     }
+  };
+};
+
+const getRandomArmTemplateVariable = (): ArmTemplateVariables => {
+  return {
+    [chance.string()]: chance.pickone([
+      chance.string(),
+      chance.integer(),
+      chance.bool(),
+      chance.n(chance.string, chance.d10()),
+      chance.n(chance.integer, chance.d10()),
+      chance.n(chance.bool, chance.d10())
+    ])
   };
 };
 
@@ -73,6 +86,48 @@ describe('ARM template parameters', () => {
 
     it('has an empty parameter object', () => {
       expect(actual.parameters).toEqual({});
+    });
+  });
+});
+
+describe('ARM template variables', () => {
+  describe('when passing variables to the arm template', () => {
+    let actual: any;
+    let armTemplateVariables: ArmTemplateVariables;
+
+    beforeEach(() => {
+      armTemplateVariables = chance
+        .n(getRandomArmTemplateVariable, chance.d10())
+        .reduce((acc: any, params: ArmTemplateVariables) => {
+          return { ...acc, ...params };
+        }, {});
+
+      const options = {
+        variables: armTemplateVariables,
+        resourcesDir: chance.string()
+      };
+
+      actual = createArmTemplate(options);
+    });
+
+    it('adds the variables to the arm template', () => {
+      expect(actual.variables).toEqual(armTemplateVariables);
+    });
+  });
+
+  describe('when not passing variables to the arm template', () => {
+    let actual: any;
+
+    beforeEach(() => {
+      const options = {
+        resourcesDir: chance.string()
+      };
+
+      actual = createArmTemplate(options);
+    });
+
+    it('has an empty parameter object', () => {
+      expect(actual.variables).toEqual({});
     });
   });
 });
