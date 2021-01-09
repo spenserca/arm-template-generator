@@ -63,25 +63,6 @@ export interface ArmTemplateOptions {
   variables?: ArmTemplateVariables;
 }
 
-interface ArmTemplateTags {}
-
-interface Sku {}
-
-interface ArmTemplateResource {
-  condition?: string;
-  type: string;
-  apiVersion: string;
-  name: string;
-  location?: string;
-  dependsOn?: string[];
-  tags?: ArmTemplateTags; // TODO: create tags interface
-  sku?: Sku;
-  kind?: string;
-  plan?: any;
-  properties?: any;
-  resources?: ArmTemplateResource[];
-}
-
 export const createArmTemplate = (armTemplateOptions: ArmTemplateOptions) => {
   return {
     $schema:
