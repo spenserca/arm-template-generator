@@ -4,7 +4,7 @@
   "description": "A utility for generating an ARM template from individual resource files",
   "main": "src/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist && webpack --mode production",
     "test": "jest"
   },
   "author": "Spenser_Andreassen <spenserca@gmail.com>",
@@ -24,8 +24,11 @@
     "prettier-standard": "^16.3.0",
     "semantic-release": "^17.3.0",
     "ts-jest": "^25.4.0",
+    "ts-loader": "^8.0.14",
     "ts-node": "^9.1.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "webpack": "^5.12.2",
+    "webpack-cli": "^4.3.1"
   },
   "commitlint": {
     "extends": [

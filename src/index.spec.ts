@@ -3,7 +3,7 @@ import {
   ArmTemplateOutputs,
   ArmTemplateParameters,
   ArmTemplateVariables,
-  createArmTemplate,
+  generateArmTemplate,
   ParameterType
 } from './index';
 import { Chance } from 'chance';
@@ -59,7 +59,7 @@ describe('ARM template parameters', () => {
         resourcesDir: chance.string()
       };
 
-      actual = createArmTemplate(options);
+      actual = generateArmTemplate(options);
     });
 
     it('adds the parameters to the arm template', () => {
@@ -75,7 +75,7 @@ describe('ARM template parameters', () => {
         resourcesDir: chance.string()
       };
 
-      actual = createArmTemplate(options);
+      actual = generateArmTemplate(options);
     });
 
     it('does not have a parameters property', () => {
@@ -114,7 +114,7 @@ describe('ARM template variables', () => {
         resourcesDir: chance.string()
       };
 
-      actual = createArmTemplate(options);
+      actual = generateArmTemplate(options);
     });
 
     it('adds the variables to the arm template', () => {
@@ -130,7 +130,7 @@ describe('ARM template variables', () => {
         resourcesDir: chance.string()
       };
 
-      actual = createArmTemplate(options);
+      actual = generateArmTemplate(options);
     });
 
     it('does not have a variables property', () => {
@@ -162,7 +162,7 @@ describe('ARM template metadata', () => {
         resourcesDir: chance.string()
       };
 
-      actual = createArmTemplate(options);
+      actual = generateArmTemplate(options);
     });
 
     it('adds the metadata to the arm template', () => {
@@ -178,7 +178,7 @@ describe('ARM template metadata', () => {
         resourcesDir: chance.string()
       };
 
-      actual = createArmTemplate(options);
+      actual = generateArmTemplate(options);
     });
 
     it('does not have a metadata property', () => {
@@ -224,7 +224,7 @@ describe('ARM template outputs', () => {
         resourcesDir: chance.string()
       };
 
-      actual = createArmTemplate(options);
+      actual = generateArmTemplate(options);
     });
 
     it('adds the outputs to the arm template', () => {
@@ -240,7 +240,7 @@ describe('ARM template outputs', () => {
         resourcesDir: chance.string()
       };
 
-      actual = createArmTemplate(options);
+      actual = generateArmTemplate(options);
     });
 
     it('does not have a outputs property', () => {
@@ -271,7 +271,7 @@ describe('ARM template resources', () => {
       );
       getResourcesMock.mockReturnValue(resources);
 
-      actual = createArmTemplate(armTemplateOptions);
+      actual = generateArmTemplate(armTemplateOptions);
     });
 
     it('gets the resources', () => {
@@ -304,7 +304,7 @@ describe('ARM template resources', () => {
       );
       getResourcesMock.mockReturnValue(resources);
 
-      actual = createArmTemplate(armTemplateOptions);
+      actual = generateArmTemplate(armTemplateOptions);
     });
 
     it('gets the resources', () => {

@@ -121,7 +121,7 @@ const setArmTemplateResources = (
   );
 };
 
-export const createArmTemplate = (
+export const generateArmTemplate = (
   armTemplateOptions: ArmTemplateOptions
 ): ArmTemplate => {
   const armTemplate: ArmTemplate = {
