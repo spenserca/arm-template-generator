@@ -32,10 +32,10 @@ export const getResources = (
 ): ArmTemplateResource[] => {
   return readdirSync(resourcesDir, { withFileTypes: true })
     .filter(
-      (dirent) =>
+      dirent =>
         isResourceFile(dirent) && !resourcesToExclude.includes(dirent.name)
     )
-    .map((dirent) =>
+    .map(dirent =>
       wrappedRequire(`${__dirname}/${resourcesDir}/${dirent.name}`)
     );
 };

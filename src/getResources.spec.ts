@@ -30,7 +30,7 @@ beforeEach(() => {
   jest.resetModules();
 
   const resourcesToExclude = chance.n(chance.string, chance.d10());
-  const excludedDirents = resourcesToExclude.map((filename) => {
+  const excludedDirents = resourcesToExclude.map(filename => {
     const dirent = getRandomDirent(true);
     dirent.name = filename;
 
@@ -44,13 +44,15 @@ beforeEach(() => {
   resourcesDir = chance.string();
 
   resourceFilePaths = resourceFileDirents.map(
-    (dirent) => `${__dirname}/${resourcesDir}/${dirent.name}`
+    dirent => `${__dirname}/${resourcesDir}/${dirent.name}`
   );
 
-  expectedResources = resourceFilePaths.map((path) => {
+  expectedResources = resourceFilePaths.map(path => {
     const resource = { [chance.string()]: chance.string() };
 
-    when(wrappedRequireMock).calledWith(path).mockReturnValueOnce(resource);
+    when(wrappedRequireMock)
+      .calledWith(path)
+      .mockReturnValueOnce(resource);
 
     return resource;
   });
@@ -73,7 +75,7 @@ it('gets the resource files', () => {
 
 it('requires the non-excluded resource files', () => {
   expect(wrappedRequireMock).toHaveBeenCalledTimes(resourceFilePaths.length);
-  resourceFilePaths.forEach((filePath) => {
+  resourceFilePaths.forEach(filePath => {
     expect(wrappedRequireMock).toHaveBeenCalledWith(filePath);
   });
 });
