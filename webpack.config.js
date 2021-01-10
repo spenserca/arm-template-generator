@@ -17,7 +17,7 @@ module.exports = {
   },
   target: 'node',
   output: {
-    filename: 'bundle.js',
+    filename: 'index.js',
     library: 'ArmTemplateGenerator',
     path: path.resolve(__dirname, 'dist')
   }

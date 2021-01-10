@@ -2,7 +2,9 @@
   "name": "arm-template-generator",
   "version": "0.0.1",
   "description": "A utility for generating an ARM template from individual resource files",
-  "main": "src/index.js",
+  "files": [
+    "dist/**/*.*"
+  ],
   "scripts": {
     "build": "rm -rf dist && webpack --mode production",
     "test": "jest",
