@@ -1,5 +1,5 @@
 {
-  "name": "arm-template-generator",
+  "name": "@spenserca/arm-template-generator",
   "version": "1.0.2",
   "description": "A utility for generating an ARM template from individual resource files",
   "files": [
