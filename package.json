@@ -1,6 +1,6 @@
 {
   "name": "arm-template-generator",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A utility for generating an ARM template from individual resource files",
   "main": "src/index.js",
   "scripts": {
@@ -12,12 +12,17 @@
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "@semantic-release/commit-analyzer": "^8.0.1",
     "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.2.0",
+    "@semantic-release/npm": "^7.0.9",
+    "@semantic-release/release-notes-generator": "^9.0.1",
     "@types/chance": "^1.0.10",
     "@types/jest": "^25.2.1",
     "@types/jest-when": "^2.7.2",
     "@types/node": "^13.13.4",
     "chance": "^1.1.4",
+    "husky": "^4.3.7",
     "jest": "^25.5.1",
     "jest-when": "^3.1.0",
     "prettier": "^2.2.1",
@@ -33,7 +38,12 @@
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
-    ]
+    ],
+    "rules": {
+      "subject-case": [
+        0
+      ]
+    }
   },
   "husky": {
     "hooks": {
