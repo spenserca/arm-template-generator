@@ -1,0 +1,29 @@
+name: build and deploy
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          presist-credentials: false
+      - name: setup
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: install
+        run: npm ci
+      - name: validate
+        run: npm run verify
+      - name: build
+        run: npm run build
+      - name: deploy
+        run: npx semantic-release@16.0.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
