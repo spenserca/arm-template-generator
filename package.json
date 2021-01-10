@@ -1,6 +1,6 @@
 {
   "name": "arm-template-generator",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A utility for generating an ARM template from individual resource files",
   "files": [
     "dist/**/*.*"
