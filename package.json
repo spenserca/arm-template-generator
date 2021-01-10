@@ -1,6 +1,6 @@
 {
   "name": "@spenserca/arm-template-generator",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A utility for generating an ARM template from individual resource files",
   "main": "dist/index.js",
   "files": [
