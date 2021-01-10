@@ -76,6 +76,7 @@
     ],
     "coveragePathIgnorePatterns": [
       "chanceSetup.ts",
+      "src/*.d.ts",
       "index.d.ts",
       "requireWrapper.ts"
     ],

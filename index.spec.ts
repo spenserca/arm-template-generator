@@ -11,7 +11,7 @@ import { getResources } from './src/getResources';
 
 const chance = new Chance();
 
-jest.mock('./getResources');
+jest.mock('./src/getResources');
 
 const getResourcesMock = getResources as jest.Mock;
 
