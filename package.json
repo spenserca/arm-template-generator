@@ -11,7 +11,20 @@
     "verify": "prettier-standard --format && jest"
   },
   "author": "Spenser_Andreassen <spenserca@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "tag": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spenserca/arm-template-generator"
+  },
+  "bugs": {
+    "url": "https://github.com/spenserca/arm-template-generator/issues"
+  },
+  "homepage": "https://github.com/spenserca/arm-template-generator#readme",
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
