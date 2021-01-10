@@ -139,7 +139,9 @@
       "@semantic-release/git",
       "@semantic-release/github"
     ],
-    "branch": "main",
+    "branches": [
+      "main"
+    ],
     "ci": true,
     "verifyConditions": [
       "@semantic-release/npm",
