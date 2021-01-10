@@ -7,7 +7,7 @@ import {
   ParameterType
 } from './index';
 import { Chance } from 'chance';
-import { getResources } from './getResources';
+import { getResources } from './src/getResources';
 
 const chance = new Chance();
 

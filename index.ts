@@ -1,4 +1,4 @@
-import { ArmTemplateResource, getResources } from './getResources';
+import { ArmTemplateResource, getResources } from './src/getResources';
 
 export type ParameterType =
   | 'string'
