@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rm -rf dist && webpack --mode production",
     "test": "jest",
-    "verify": "prettier -c **/*.ts && jest"
+    "verify": "prettier-standard --format && jest"
   },
   "author": "Spenser_Andreassen <spenserca@gmail.com>",
   "license": "ISC",
