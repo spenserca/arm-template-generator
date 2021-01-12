@@ -1,5 +1,6 @@
 import { Dirent, readdirSync } from 'fs';
 import { wrappedRequire } from './requireWrapper';
+import { ArmTemplateResource } from '../index';
 
 const isResourceFile = (dirent: Dirent) =>
   dirent.isFile() &&
