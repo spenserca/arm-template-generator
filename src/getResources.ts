@@ -15,7 +15,5 @@ export const getResources = (
       dirent =>
         isResourceFile(dirent) && !resourcesToExclude.includes(dirent.name)
     )
-    .map(dirent =>
-      wrappedRequire(`${__dirname}/${resourcesDir}/${dirent.name}`)
-    );
+    .map(dirent => wrappedRequire(`${resourcesDir}/${dirent.name}`));
 };

@@ -44,7 +44,7 @@ beforeEach(() => {
   resourcesDir = chance.string();
 
   resourceFilePaths = resourceFileDirents.map(
-    dirent => `${__dirname}/${resourcesDir}/${dirent.name}`
+    dirent => `${resourcesDir}/${dirent.name}`
   );
 
   expectedResources = resourceFilePaths.map(path => {
