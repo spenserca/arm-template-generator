@@ -1,27 +1,6 @@
 import { Dirent, readdirSync } from 'fs';
 import { wrappedRequire } from './requireWrapper';
 
-interface ArmTemplateTags {
-  [key: string]: string;
-}
-
-interface Sku {}
-
-export interface ArmTemplateResource {
-  condition?: string;
-  type: string;
-  apiVersion: string;
-  name: string;
-  location?: string;
-  dependsOn?: string[];
-  tags?: ArmTemplateTags;
-  sku?: Sku;
-  kind?: string;
-  plan?: any;
-  properties?: any;
-  resources?: ArmTemplateResource[];
-}
-
 const isResourceFile = (dirent: Dirent) =>
   dirent.isFile() &&
   (dirent.name.endsWith('.js') || dirent.name.endsWith('.json'));

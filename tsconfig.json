@@ -5,12 +5,11 @@
     "declaration": true,
     "sourceMap": true,
     "outDir": "./dist",
-    "rootDir": ".",
-    "removeComments": true,
+    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "removeComments": true
   },
   "exclude": ["**/*.spec.ts"]
 }

@@ -4,9 +4,10 @@
   "description": "A utility for generating an ARM template from individual resource files",
   "main": "dist/index.js",
   "files": [
-    "dist/**/*.*"
+    "dist/*.*",
+    "index.d.ts"
   ],
-  "types": "dist/index.d.ts",
+  "types": "index.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc",
     "test": "jest",
