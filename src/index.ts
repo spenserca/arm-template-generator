@@ -1,4 +1,5 @@
 import { getResources } from './getResources';
+import { ArmTemplate, ArmTemplateOptions } from '../index';
 
 const setArmTemplateParameters = (
   armTemplateOptions: ArmTemplateOptions,

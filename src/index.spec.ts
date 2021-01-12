@@ -1,17 +1,17 @@
+import { generateArmTemplate } from './index';
+import { Chance } from 'chance';
+import { getResources } from './getResources';
 import {
   ArmTemplateMetadata,
   ArmTemplateOutputs,
   ArmTemplateParameters,
   ArmTemplateVariables,
-  generateArmTemplate,
   ParameterType
-} from './index';
-import { Chance } from 'chance';
-import { getResources } from './getResources';
+} from '../index';
 
 const chance = new Chance();
 
-jest.mock('./src/getResources');
+jest.mock('./getResources');
 
 const getResourcesMock = getResources as jest.Mock;
 

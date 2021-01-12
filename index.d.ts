@@ -1,6 +1,6 @@
 // Type definitions for arm-template-generator v1.0.0
 
-type ParameterType =
+export type ParameterType =
   | 'string'
   | 'secureString'
   | 'int'
@@ -9,15 +9,15 @@ type ParameterType =
   | 'secureObject'
   | 'array';
 
-interface ParameterMetadata {
+export interface ParameterMetadata {
   description: string;
 }
 
-interface ArmTemplateMetadata {
+export interface ArmTemplateMetadata {
   [key: string]: any;
 }
 
-type ValueType =
+export type ValueType =
   | string
   | number
   | boolean
@@ -27,7 +27,7 @@ type ValueType =
   | Array<boolean>
   | Array<object>;
 
-interface ArmTemplateParameters {
+export interface ArmTemplateParameters {
   [key: string]: {
     type: ParameterType;
     defaultValue?: ValueType;
@@ -40,11 +40,11 @@ interface ArmTemplateParameters {
   };
 }
 
-interface ArmTemplateVariables {
+export interface ArmTemplateVariables {
   [key: string]: ValueType;
 }
 
-interface ArmTemplateOutputs {
+export interface ArmTemplateOutputs {
   [outputName: string]: {
     condition?: string;
     type: ParameterType;
@@ -56,7 +56,7 @@ interface ArmTemplateOutputs {
   };
 }
 
-interface ArmTemplateOptions {
+export interface ArmTemplateOptions {
   metadata?: ArmTemplateMetadata;
   outputs?: ArmTemplateOutputs;
   parameters?: ArmTemplateParameters;
@@ -65,7 +65,7 @@ interface ArmTemplateOptions {
   variables?: ArmTemplateVariables;
 }
 
-interface ArmTemplate {
+export interface ArmTemplate {
   $schema: string;
   contentVersion: string;
   metadata?: ArmTemplateMetadata;
@@ -75,13 +75,13 @@ interface ArmTemplate {
   outputs?: ArmTemplateOutputs;
 }
 
-interface ArmTemplateTags {
+export interface ArmTemplateTags {
   [key: string]: string;
 }
 
-interface Sku {}
+export interface Sku {}
 
-interface ArmTemplateResource {
+export interface ArmTemplateResource {
   condition?: string;
   type: string;
   apiVersion: string;
