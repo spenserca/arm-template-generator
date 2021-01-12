@@ -95,3 +95,7 @@ export interface ArmTemplateResource {
   properties?: any;
   resources?: ArmTemplateResource[];
 }
+
+export declare const generateArmTemplate: (
+  armTemplateOptions: ArmTemplateOptions
+) => ArmTemplate;
