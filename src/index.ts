@@ -1,5 +1,10 @@
 import { getResources } from './getResources';
-import { ArmTemplate, ArmTemplateOptions } from '../index';
+import {
+  ArmTemplate,
+  ArmTemplateGenerator,
+  ArmTemplateOptions
+} from '../index';
+import { writeToFile } from './writeToFile';
 
 const setArmTemplateParameters = (
   armTemplateOptions: ArmTemplateOptions,
@@ -49,18 +54,23 @@ const setArmTemplateResources = (
 
 export const generateArmTemplate = (
   armTemplateOptions: ArmTemplateOptions
-): ArmTemplate => {
+): ArmTemplateGenerator => {
   const armTemplate: ArmTemplate = {
     $schema:
       'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#',
     contentVersion: '1.0.0.0'
   };
 
+  setArmTemplateMetadata(armTemplateOptions, armTemplate);
   setArmTemplateParameters(armTemplateOptions, armTemplate);
   setArmTemplateVariables(armTemplateOptions, armTemplate);
-  setArmTemplateMetadata(armTemplateOptions, armTemplate);
-  setArmTemplateOutputs(armTemplateOptions, armTemplate);
   setArmTemplateResources(armTemplateOptions, armTemplate);
+  setArmTemplateOutputs(armTemplateOptions, armTemplate);
 
-  return armTemplate;
+  return {
+    armTemplate,
+    toJSON: () => armTemplate,
+    writeToFile: (outputFilePath: string) =>
+      writeToFile(armTemplate, outputFilePath)
+  };
 };
