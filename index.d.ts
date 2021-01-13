@@ -99,3 +99,9 @@ export interface ArmTemplateResource {
 export declare const generateArmTemplate: (
   armTemplateOptions: ArmTemplateOptions
 ) => ArmTemplate;
+
+export interface ArmTemplateGenerator {
+  armTemplate: ArmTemplate;
+  toJSON: () => ArmTemplate;
+  writeToFile: (outputFilePath: string) => void;
+}
