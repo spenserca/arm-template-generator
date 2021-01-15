@@ -30,9 +30,9 @@ describe('when generating an arm template without extra props', () => {
     const expected = readFileSync(
       `${__dirname}/expectedWithoutProps.json`,
       'utf8'
-    ).replace(/\r\n/g, '\n');
+    ).replace(/\r?\n/g, '\n');
     const expectedCheckSum = md5(expected);
-    const actualCheckSum = md5(actual);
+    const actualCheckSum = md5(actual.replace(/\r?\n/g, '\n'));
 
     expect(actualCheckSum).toEqual(expectedCheckSum);
   });
@@ -81,9 +81,9 @@ describe('when generating an arm template with extra props from options', () => 
     const expected = readFileSync(
       `${__dirname}/expectedWithProps.json`,
       'utf8'
-    ).replace(/\r\n/g, '\n');
+    ).replace(/\r?\n/g, '\n');
     const expectedCheckSum = md5(expected);
-    const actualCheckSum = md5(actual);
+    const actualCheckSum = md5(actual.replace(/\r?\n/g, '\n'));
 
     expect(actualCheckSum).toEqual(expectedCheckSum);
   });
@@ -107,9 +107,9 @@ describe('when generating an arm template with extra props from js file', () => 
     const expected = readFileSync(
       `${__dirname}/expectedWithProps.json`,
       'utf8'
-    ).replace(/\r\n/g, '\n');
+    ).replace(/\r?\n/g, '\n');
     const expectedCheckSum = md5(expected);
-    const actualCheckSum = md5(actual);
+    const actualCheckSum = md5(actual.replace(/\r?\n/g, '\n'));
 
     expect(actualCheckSum).toEqual(expectedCheckSum);
   });
@@ -133,9 +133,9 @@ describe('when generating an arm template with extra props from json file', () =
     const expected = readFileSync(
       `${__dirname}/expectedWithProps.json`,
       'utf8'
-    ).replace(/\r\n/g, '\n');
+    ).replace(/\r?\n/g, '\n');
     const expectedCheckSum = md5(expected);
-    const actualCheckSum = md5(actual);
+    const actualCheckSum = md5(actual.replace(/\r?\n/g, '\n'));
 
     expect(actualCheckSum).toEqual(expectedCheckSum);
   });
