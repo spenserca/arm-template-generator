@@ -3,7 +3,7 @@ name: pr verify
 on: [push, pull_request]
 
 jobs:
-  build_and_deploy:
+  pr_verify:
     runs-on: ubuntu-latest
     steps:
       - name: checkout

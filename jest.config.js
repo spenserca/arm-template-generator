@@ -6,7 +6,8 @@ module.exports = {
     'src/*.d.ts',
     'index.d.ts',
     'requireWrapper.ts',
-    'dist'
+    'dist',
+    'test'
   ],
   coverageThreshold: {
     global: {
