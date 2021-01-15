@@ -1,6 +1,6 @@
 name: pr verify
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   pr_verify:
