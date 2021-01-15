@@ -72,8 +72,8 @@ export interface ArmTemplateOptions extends StringIndexable {
 export type FilePath = string;
 
 export interface ArmTemplate extends StringIndexable {
-  $schema: string;
-  contentVersion: string;
+  $schema: 'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#';
+  contentVersion: '1.0.0.0';
   metadata?: ArmTemplateMetadata;
   parameters?: ArmTemplateParameters;
   variables?: ArmTemplateVariables;
