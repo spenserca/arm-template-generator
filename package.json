@@ -10,8 +10,9 @@
   "types": "index.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc",
+    "e2e": "jest -c e2e.config.js",
     "test": "jest",
-    "verify": "prettier-standard --format && jest"
+    "verify": "prettier-standard --format && jest -c jest.config.js"
   },
   "author": "Spenser_Andreassen <spenserca@gmail.com>",
   "license": "MIT",
