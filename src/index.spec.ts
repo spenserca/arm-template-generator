@@ -1,259 +1,54 @@
 import { generateArmTemplate } from './index';
 import { Chance } from 'chance';
 import { getResources } from './getResources';
-import {
-  ArmTemplate,
-  ArmTemplateMetadata,
-  ArmTemplateOutputs,
-  ArmTemplateParameters,
-  ArmTemplateResource,
-  ArmTemplateVariables,
-  ParameterType
-} from '../index';
+import { ArmTemplate, ArmTemplateOptions, ArmTemplateResource } from '../index';
 import { writeToFile } from './writeToFile';
+import { setArmTemplateProperty } from './setArmTemplateProperty';
 
 const chance = new Chance();
 
 jest.mock('./getResources');
+jest.mock('./setArmTemplateProperty');
 jest.mock('./writeToFile');
 
 const getResourcesMock = getResources as jest.Mock;
+const setArmTemplatePropertyMock = setArmTemplateProperty as jest.Mock;
 const writeToFileMock = writeToFile as jest.Mock;
 
+const armTemplateProperties = [
+  'metadata',
+  'outputs',
+  'parameters',
+  'variables'
+];
+
 describe('ARM Template', () => {
-  describe('ARM template parameters', () => {
-    describe('when passing parameters to the arm template', () => {
-      let actual: any;
-      let armTemplateParameters: ArmTemplateParameters;
+  describe.each(armTemplateProperties)(
+    'ARM template %s',
+    (property: string) => {
+      let armTemplateOptions: ArmTemplateOptions;
+      let armTemplate: ArmTemplate;
 
       beforeEach(() => {
-        const getRandomArmTemplateParameter = (): ArmTemplateParameters => {
-          const parameterType: ParameterType = chance.pickone([
-            'string',
-            'secureString',
-            'int',
-            'bool',
-            'object',
-            'secureObject',
-            'array'
-          ]);
-
-          return {
-            [chance.string()]: {
-              type: parameterType,
-              defaultValue: chance.string(),
-              allowedValues: [chance.string()],
-              minValue: chance.integer(),
-              maxValue: chance.integer(),
-              minLength: chance.integer(),
-              maxLength: chance.integer(),
-              metadata: {
-                description: chance.string()
-              }
-            }
-          };
+        armTemplateOptions = {} as ArmTemplateOptions;
+        armTemplate = {
+          $schema:
+            'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#',
+          contentVersion: '1.0.0.0'
         };
 
-        armTemplateParameters = chance
-          .n(getRandomArmTemplateParameter, chance.d10())
-          .reduce((acc: any, params: ArmTemplateParameters) => {
-            return { ...acc, ...params };
-          }, {});
-
-        const options = {
-          parameters: armTemplateParameters,
-          resourcesDir: chance.string()
-        };
-
-        actual = generateArmTemplate(options).armTemplate;
+        generateArmTemplate(armTemplateOptions).armTemplate;
       });
 
-      it('adds the parameters to the arm template', () => {
-        expect(actual.parameters).toEqual(armTemplateParameters);
+      it('sets the arm template parameters', () => {
+        expect(setArmTemplatePropertyMock).toHaveBeenCalledWith(
+          armTemplateOptions,
+          armTemplate,
+          property
+        );
       });
-    });
-
-    describe('when not passing parameters to the arm template', () => {
-      let actual: any;
-
-      beforeEach(() => {
-        const options = {
-          resourcesDir: chance.string()
-        };
-
-        actual = generateArmTemplate(options).armTemplate;
-      });
-
-      it('does not have a parameters property', () => {
-        expect(actual.parameters).toBeUndefined();
-      });
-    });
-  });
-
-  describe('ARM template variables', () => {
-    describe('when passing variables to the arm template', () => {
-      let actual: any;
-      let armTemplateVariables: ArmTemplateVariables;
-
-      beforeEach(() => {
-        const getRandomArmTemplateVariable = (): ArmTemplateVariables => {
-          return {
-            [chance.string()]: chance.pickone([
-              chance.string(),
-              chance.integer(),
-              chance.bool(),
-              chance.n(chance.string, chance.d10()),
-              chance.n(chance.integer, chance.d10()),
-              chance.n(chance.bool, chance.d10())
-            ])
-          };
-        };
-
-        armTemplateVariables = chance
-          .n(getRandomArmTemplateVariable, chance.d10())
-          .reduce((acc: any, params: ArmTemplateVariables) => {
-            return { ...acc, ...params };
-          }, {});
-
-        const options = {
-          variables: armTemplateVariables,
-          resourcesDir: chance.string()
-        };
-
-        actual = generateArmTemplate(options).armTemplate;
-      });
-
-      it('adds the variables to the arm template', () => {
-        expect(actual.variables).toEqual(armTemplateVariables);
-      });
-    });
-
-    describe('when not passing variables to the arm template', () => {
-      let actual: any;
-
-      beforeEach(() => {
-        const options = {
-          resourcesDir: chance.string()
-        };
-
-        actual = generateArmTemplate(options).armTemplate;
-      });
-
-      it('does not have a variables property', () => {
-        expect(actual.variables).toBeUndefined();
-      });
-    });
-  });
-
-  describe('ARM template metadata', () => {
-    describe('when passing metadata to the arm template', () => {
-      let actual: any;
-      let armTemplateMetadata: ArmTemplateMetadata;
-
-      beforeEach(() => {
-        const getRandomArmTemplateMetadata = (): ArmTemplateVariables => {
-          return {
-            [chance.string()]: { [chance.string()]: chance.string() }
-          };
-        };
-
-        armTemplateMetadata = chance
-          .n(getRandomArmTemplateMetadata, chance.d10())
-          .reduce((acc: any, params: ArmTemplateVariables) => {
-            return { ...acc, ...params };
-          }, {});
-
-        const options = {
-          metadata: armTemplateMetadata,
-          resourcesDir: chance.string()
-        };
-
-        actual = generateArmTemplate(options).armTemplate;
-      });
-
-      it('adds the metadata to the arm template', () => {
-        expect(actual.metadata).toEqual(armTemplateMetadata);
-      });
-    });
-
-    describe('when not passing metadata to the arm template', () => {
-      let actual: any;
-
-      beforeEach(() => {
-        const options = {
-          resourcesDir: chance.string()
-        };
-
-        actual = generateArmTemplate(options).armTemplate;
-      });
-
-      it('does not have a metadata property', () => {
-        expect(actual.metadata).toBeUndefined();
-      });
-    });
-  });
-
-  describe('ARM template outputs', () => {
-    describe('when passing outputs to the arm template', () => {
-      let actual: any;
-      let armTemplateOutputs: ArmTemplateOutputs;
-
-      beforeEach(() => {
-        const getRandomArmTemplateOutput = (): ArmTemplateOutputs => {
-          const type: ParameterType = chance.pickone([
-            'string',
-            'secureString',
-            'int',
-            'bool',
-            'object',
-            'secureObject',
-            'array'
-          ]);
-
-          return {
-            [chance.string()]: {
-              type: type,
-              condition: chance.string(),
-              value: chance.string()
-            }
-          };
-        };
-
-        armTemplateOutputs = chance
-          .n(getRandomArmTemplateOutput, chance.d10())
-          .reduce((acc: any, params: ArmTemplateParameters) => {
-            return { ...acc, ...params };
-          }, {});
-
-        const options = {
-          outputs: armTemplateOutputs,
-          resourcesDir: chance.string()
-        };
-
-        actual = generateArmTemplate(options).armTemplate;
-      });
-
-      it('adds the outputs to the arm template', () => {
-        expect(actual.outputs).toEqual(armTemplateOutputs);
-      });
-    });
-
-    describe('when not passing outputs to the arm template', () => {
-      let actual: any;
-
-      beforeEach(() => {
-        const options = {
-          resourcesDir: chance.string()
-        };
-
-        actual = generateArmTemplate(options).armTemplate;
-      });
-
-      it('does not have a outputs property', () => {
-        expect(actual.outputs).toBeUndefined();
-      });
-    });
-  });
+    }
+  );
 
   describe('ARM template resources', () => {
     describe('when passing resources to exclude', () => {

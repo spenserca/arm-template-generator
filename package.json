@@ -79,7 +79,8 @@
       "chanceSetup.ts",
       "src/*.d.ts",
       "index.d.ts",
-      "requireWrapper.ts"
+      "requireWrapper.ts",
+      "dist"
     ],
     "coverageThreshold": {
       "global": {
