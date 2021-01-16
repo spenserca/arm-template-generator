@@ -10,11 +10,16 @@ logically organize resources.
 
 ## getting started
 
-To get started, you'll need to create a directory to hold all of your resource files. In this case, we're using
+**You can look at the [e2e tests](https://github.com/spenserca/arm-template-generator/blob/main/test/e2e.spec.ts) to see
+an example of how to use this library.**
+
+Install the package with `npm i -D @spenserca/arm-template-generator`.
+
+Then create a directory to hold all of your resource files. In this case, we're using
 the `resources`
 directory in the root of our project.
 
-Then create either a JSON file with your resource's configuration:
+Next create either a JSON file with your resource's configuration:
 
 ```json
 {
@@ -70,3 +75,27 @@ const armTemplateGenerator = generateArmTemplate({
   resourcesDir: `${__dirname}/resources`
 }).writeToFile(`${__dirname}/arm-template.json`);
 ```
+
+## options
+
+These are the options that can be passed when generating an ARM template, what they do,
+and how to use them.
+
+- [metadata (optional)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-syntax#metadata):
+  - This can be used to set metadata of the ARM template
+  - It can be an object that adheres to the structure of ARM template metadata, or a string which is a file path to a javascript file which exports a metadata object, or a JSON file that is the metadata object
+- [outputs (optional)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-syntax#outputs):
+  - This can be used to set outputs of the ARM template
+  - It can be an object that adheres to the structure of ARM template outputs, or a string which is a file path to a javascript file which exports an output object, or a JSON file that is the output object
+- [parameters (optional)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-syntax#parameters):
+  - This can be used to set parameters of the ARM template
+  - It can be an object that adheres to the structure of ARM template parameters, or a string which is a file path to a javascript file which exports a parameters object, or a JSON file that is the parameters object
+- resourcesToExclude (optional):
+  - This is used to exclude specific resource files from being added to the ARM template
+  - It should be an array of file names to exclude
+- resourcesDir (required):
+  - This is used to import the independent resource files
+  - It should be the string path to the directory that holds the resource files
+- [variables (optional)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-syntax#variables):
+  - This can be used to set variables of the ARM template
+  - It can be an object that adheres to the structure of ARM template variables, or a string which is a file path to a javascript file which exports a variables object, or a JSON file that is the variables object
