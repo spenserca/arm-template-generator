@@ -1,13 +1,9 @@
-name: build and deploy
+name: pr verify
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-    inputs:
+on: [pull_request]
 
 jobs:
-  build_and_deploy:
+  pr_verify:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -24,10 +20,3 @@ jobs:
         run: npm run verify
       - name: e2e
         run: npm run e2e
-      - name: build
-        run: npm run build
-      - name: deploy
-        run: npx semantic-release@16.0.4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

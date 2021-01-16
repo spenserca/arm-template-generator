@@ -10,8 +10,9 @@
   "types": "index.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc",
+    "e2e": "jest -c e2e.config.js",
     "test": "jest",
-    "verify": "prettier-standard --format && jest"
+    "verify": "prettier-standard --format && jest -c jest.config.js"
   },
   "author": "Spenser_Andreassen <spenserca@gmail.com>",
   "license": "MIT",
@@ -68,42 +69,6 @@
     "hooks": {
       "commit-msg": "Commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "prettier-standard --format --staged"
-    }
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/*.ts"
-    ],
-    "coveragePathIgnorePatterns": [
-      "chanceSetup.ts",
-      "src/*.d.ts",
-      "index.d.ts",
-      "requireWrapper.ts"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
-      }
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ],
-    "resetMocks": true,
-    "testEnvironment": "node",
-    "testMatch": [
-      "**/*.spec.ts"
-    ],
-    "transform": {
-      "\\.ts$": "ts-jest"
     }
   },
   "prettier": {

@@ -1,0 +1,9 @@
+module.exports = {
+  'test-parameter': {
+    type: 'string',
+    defaultValue: 'default-value',
+    metadata: {
+      description: 'test-parameter-description'
+    }
+  }
+};

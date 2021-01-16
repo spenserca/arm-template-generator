@@ -1,0 +1,6 @@
+module.exports = {
+  'test-string-output': {
+    type: 'string',
+    value: 'test-string-output-value'
+  }
+};

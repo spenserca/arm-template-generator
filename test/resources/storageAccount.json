@@ -1,0 +1,7 @@
+{
+  "type": "Microsoft.Storage/storageAccounts",
+  "apiVersion": "2019-06-01",
+  "location": "[resourceGroup().location]",
+  "name": "atgsajson",
+  "kind": "StorageV2"
+}

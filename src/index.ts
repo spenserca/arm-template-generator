@@ -5,42 +5,7 @@ import {
   ArmTemplateOptions
 } from '../index';
 import { writeToFile } from './writeToFile';
-
-const setArmTemplateParameters = (
-  armTemplateOptions: ArmTemplateOptions,
-  armTemplate: ArmTemplate
-) => {
-  if (armTemplateOptions.parameters) {
-    armTemplate.parameters = armTemplateOptions.parameters;
-  }
-};
-
-const setArmTemplateVariables = (
-  armTemplateOptions: ArmTemplateOptions,
-  armTemplate: ArmTemplate
-) => {
-  if (armTemplateOptions.variables) {
-    armTemplate.variables = armTemplateOptions.variables;
-  }
-};
-
-const setArmTemplateMetadata = (
-  armTemplateOptions: ArmTemplateOptions,
-  armTemplate: ArmTemplate
-) => {
-  if (armTemplateOptions.metadata) {
-    armTemplate.metadata = armTemplateOptions.metadata;
-  }
-};
-
-const setArmTemplateOutputs = (
-  armTemplateOptions: ArmTemplateOptions,
-  armTemplate: ArmTemplate
-) => {
-  if (armTemplateOptions.outputs) {
-    armTemplate.outputs = armTemplateOptions.outputs;
-  }
-};
+import { setArmTemplateProperty } from './setArmTemplateProperty';
 
 const setArmTemplateResources = (
   armTemplateOptions: ArmTemplateOptions,
@@ -61,11 +26,11 @@ export const generateArmTemplate = (
     contentVersion: '1.0.0.0'
   };
 
-  setArmTemplateMetadata(armTemplateOptions, armTemplate);
-  setArmTemplateParameters(armTemplateOptions, armTemplate);
-  setArmTemplateVariables(armTemplateOptions, armTemplate);
+  setArmTemplateProperty(armTemplateOptions, armTemplate, 'metadata');
+  setArmTemplateProperty(armTemplateOptions, armTemplate, 'parameters');
+  setArmTemplateProperty(armTemplateOptions, armTemplate, 'variables');
   setArmTemplateResources(armTemplateOptions, armTemplate);
-  setArmTemplateOutputs(armTemplateOptions, armTemplate);
+  setArmTemplateProperty(armTemplateOptions, armTemplate, 'outputs');
 
   return {
     armTemplate,

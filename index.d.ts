@@ -56,18 +56,24 @@ export interface ArmTemplateOutputs {
   };
 }
 
-export interface ArmTemplateOptions {
-  metadata?: ArmTemplateMetadata;
-  outputs?: ArmTemplateOutputs;
-  parameters?: ArmTemplateParameters;
-  resourcesToExclude?: string[];
-  resourcesDir: string;
-  variables?: ArmTemplateVariables;
+interface StringIndexable {
+  [key: string]: any;
 }
 
-export interface ArmTemplate {
-  $schema: string;
-  contentVersion: string;
+export interface ArmTemplateOptions extends StringIndexable {
+  metadata?: ArmTemplateMetadata | FilePath;
+  outputs?: ArmTemplateOutputs | FilePath;
+  parameters?: ArmTemplateParameters | FilePath;
+  resourcesToExclude?: string[];
+  resourcesDir: string;
+  variables?: ArmTemplateVariables | FilePath;
+}
+
+export type FilePath = string;
+
+export interface ArmTemplate extends StringIndexable {
+  $schema: 'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#';
+  contentVersion: '1.0.0.0';
   metadata?: ArmTemplateMetadata;
   parameters?: ArmTemplateParameters;
   variables?: ArmTemplateVariables;
