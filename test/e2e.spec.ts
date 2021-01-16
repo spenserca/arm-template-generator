@@ -30,9 +30,11 @@ describe('when generating an arm template without extra props', () => {
     const expected = readFileSync(
       `${__dirname}/expectedWithoutProps.json`,
       'utf8'
-    ).replace(/\r?\n/g, '\n');
+    )
+      .replace(/\r?\n/g, '\n')
+      .trim();
     const expectedCheckSum = md5(expected);
-    const actualCheckSum = md5(actual.replace(/\r?\n/g, '\n'));
+    const actualCheckSum = md5(actual.replace(/\r?\n/g, '\n').trim());
 
     expect(actualCheckSum).toEqual(expectedCheckSum);
   });
@@ -48,12 +50,11 @@ describe('when generating an arm template with extra props from options', () => 
       }
     };
     const parameters: ArmTemplateParameters = {
-      'test-array-parameter': {
-        type: 'array',
-        defaultValue: [],
-        allowedValues: [1, 2, 3, 4, 5],
+      'test-parameter': {
+        type: 'string',
+        defaultValue: 'default-value',
         metadata: {
-          description: 'test-array-parameter-description'
+          description: 'test-parameter-description'
         }
       }
     };
@@ -78,12 +79,12 @@ describe('when generating an arm template with extra props from options', () => 
   });
 
   it('matches the expected output', () => {
-    const expected = readFileSync(
-      `${__dirname}/expectedWithProps.json`,
-      'utf8'
-    ).replace(/\r?\n/g, '\n');
+    const expected = readFileSync(`${__dirname}/expectedWithProps.json`, 'utf8')
+      .replace(/\r?\n/g, '\n')
+      .trim();
     const expectedCheckSum = md5(expected);
-    const actualCheckSum = md5(actual.replace(/\r?\n/g, '\n'));
+    const actualTrimmed = actual.replace(/\r?\n/g, '\n').trim();
+    const actualCheckSum = md5(actualTrimmed);
 
     expect(actualCheckSum).toEqual(expectedCheckSum);
   });
@@ -104,12 +105,12 @@ describe('when generating an arm template with extra props from js file', () => 
   });
 
   it('matches the expected output', () => {
-    const expected = readFileSync(
-      `${__dirname}/expectedWithProps.json`,
-      'utf8'
-    ).replace(/\r?\n/g, '\n');
+    const expected = readFileSync(`${__dirname}/expectedWithProps.json`, 'utf8')
+      .replace(/\r?\n/g, '\n')
+      .trim();
     const expectedCheckSum = md5(expected);
-    const actualCheckSum = md5(actual.replace(/\r?\n/g, '\n'));
+    const actualTrimmed = actual.replace(/\r?\n/g, '\n').trim();
+    const actualCheckSum = md5(actualTrimmed);
 
     expect(actualCheckSum).toEqual(expectedCheckSum);
   });
@@ -130,12 +131,12 @@ describe('when generating an arm template with extra props from json file', () =
   });
 
   it('matches the expected output', () => {
-    const expected = readFileSync(
-      `${__dirname}/expectedWithProps.json`,
-      'utf8'
-    ).replace(/\r?\n/g, '\n');
+    const expected = readFileSync(`${__dirname}/expectedWithProps.json`, 'utf8')
+      .replace(/\r?\n/g, '\n')
+      .trim();
     const expectedCheckSum = md5(expected);
-    const actualCheckSum = md5(actual.replace(/\r?\n/g, '\n'));
+    let contents = actual.replace(/\r?\n/g, '\n').trim();
+    const actualCheckSum = md5(contents);
 
     expect(actualCheckSum).toEqual(expectedCheckSum);
   });
